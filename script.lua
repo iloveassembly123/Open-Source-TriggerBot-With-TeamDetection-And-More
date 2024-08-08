@@ -2,7 +2,8 @@
 local HoldClick = true
 local Hotkey = 't' -- Leave blank for always on
 local HotkeyToggle = true -- True if you want it to toggle on and off with a click
-local teamDetect = true
+local teamDetection = true
+local fireIfToolEquipped = true 
 
 local Players = game:GetService('Players')
 local RunService = game:GetService('RunService')
@@ -28,12 +29,15 @@ Mouse.KeyUp:Connect(function(key)
 	end
 end)
 
-RunService.RenderStepped:Connect(function() --Ugly if statements are below, i recommend this to be fixed.
+RunService.RenderStepped:Connect(function()
 	if Toggle then
 		if Mouse.Target then
 			if Mouse.Target.Parent:FindFirstChild('Humanoid') then
-				local plr = GetPlayerFromCharacther(Mouse.Target.Parent)
-				if teamDetect == true and plr.Team == game.Players.Localplayer.Team then return end
+				if fireIfToolEquipped and not LocalPlayer.Character:FindFirstChildOfClass("Tool") then return end
+				local player = game.Players:GetPlayerFromCharacter(Mouse.Target.Parent)
+				if teamDetection and player.Team == LocalPlayer.Team then
+					return
+				end
 				if HoldClick then
 					if not CurrentlyPressed then
 						CurrentlyPressed = true
