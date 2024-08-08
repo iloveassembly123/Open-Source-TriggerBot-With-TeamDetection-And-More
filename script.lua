@@ -33,7 +33,7 @@ RunService.RenderStepped:Connect(function() --Ugly if statements are below, i re
 		if Mouse.Target then
 			if Mouse.Target.Parent:FindFirstChild('Humanoid') then
 				local plr = GetPlayerFromCharacther(Mouse.Target.Parent)
-				if teamDetect == true and plr.Team = game.Players.Localplayer.Team then return end
+				if teamDetect == true and plr.Team == game.Players.Localplayer.Team then return end
 				if HoldClick then
 					if not CurrentlyPressed then
 						CurrentlyPressed = true
