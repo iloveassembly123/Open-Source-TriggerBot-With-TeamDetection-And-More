@@ -33,11 +33,10 @@ RunService.RenderStepped:Connect(function()
 	if Toggle then
 		if Mouse.Target then
 			if Mouse.Target.Parent:FindFirstChild('Humanoid') then
-				if fireIfToolEquipped and not LocalPlayer.Character:FindFirstChildOfClass("Tool") then return end
-				local player = game.Players:GetPlayerFromCharacter(Mouse.Target.Parent)
-				if teamDetection and player.Team == LocalPlayer.Team then
-					return
-				end
+				local player = game.Players:GetPlayerFromCharacter(Mouse.Target.Parent)	
+			
+				if fireIfToolEquipped and not LocalPlayer.Character:FindFirstChildOfClass("Tool") or teamDetection and player.team == LocalPlayer.Team then return end --CONDITIONS CHECKER
+					
 				if HoldClick then
 					if not CurrentlyPressed then
 						CurrentlyPressed = true
